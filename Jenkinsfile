@@ -54,12 +54,12 @@ stage('Push to Docker Hub') {
  sh '''
  ssh -o StrictHostKeyChecking=no ${LEMP_USER}@${LEMP_SERVER}
 \
- "docker pull ${DOCKER_IMAGE}:latest && \
+ "docker pull ${DOCKER_IMAGE}:${BUILD_NUMBER} && \
  docker stop myapp || true && \
  docker rm myapp || true && \
  docker run -d --name myapp \
- -p 80:80 \
- ${DOCKER_IMAGE}:latest"
+ -p 5000:5000 \
+ ${DOCKER_IMAGE}:${BUILD_NUMBER}"
  '''
  }
  }
