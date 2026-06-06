@@ -42,7 +42,7 @@ stage('Push to Docker Hub') {
         script {
             docker.withRegistry('', 'dockerhubcredential') {
                 dockerImage.push("${DOCKER_TAG}")
-                dockerImage.push('latest')
+                dockerImage.push("${BUILD_NUMBER}")
             }
         }
     }
