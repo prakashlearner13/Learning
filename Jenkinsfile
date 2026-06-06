@@ -1,7 +1,5 @@
 pipeline {
 agent any
-
-```
 environment {
     // Docker Hub image
     DOCKER_IMAGE = "prakashlearner13/jenkinsproject"
