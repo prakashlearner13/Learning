@@ -48,10 +48,10 @@ stages {
             sshagent(credentials: ['lemp-server-ssh']) {
                 sh """
                     ssh -o StrictHostKeyChecking=no ${LEMP_USER}@${LEMP_SERVER} "
-                        docker pull ${DOCKER_IMAGE}:${DOCKER_TAG} &&
-                        docker stop myapp || true &&
-                        docker rm myapp || true &&
-                        docker run -d \
+                        sudo docker pull ${DOCKER_IMAGE}:${DOCKER_TAG} &&
+                        sudo docker stop myapp || true &&
+                        sudo docker rm myapp || true &&
+                        sudo docker run -d \
                             --name myapp \
                             -p 5000:5000 \
                             --restart unless-stopped \
