@@ -2,7 +2,7 @@ pipeline {
  agent any
  environment {
  // Docker Hub image name — change to your Docker Hub username
- DOCKER_IMAGE = "prakashlearner13/myapp"
+ DOCKER_IMAGE = "prakashlearner13/jenkinsproject"
  DOCKER_TAG = "${BUILD_NUMBER}" // unique tag per build
  LEMP_SERVER = "98.93.133.4" // IP of your Nginx/LEMP EC2
  LEMP_USER = "ubuntu"
