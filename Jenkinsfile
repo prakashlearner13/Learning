@@ -24,18 +24,29 @@ pipeline {
  }
  }
  }
- // ── Stage 3: Push image to Docker Hub ───────────────────────
- stage('Push to Docker Hub') {
- steps {
-   script {
- docker.withRegistry('https://hub.docker.com/repository/docker/prakashlearner13/jenkinsproject/',
- 'dockerhubcredential') {
- dockerImage.push("${DOCKER_TAG}")
- dockerImage.push('latest') // also tag as latest
- }
- }
- }
- }
+ // // ── Stage 3: Push image to Docker Hub ───────────────────────
+ // stage('Push to Docker Hub') {
+ // steps {
+ //   script {
+ // docker.withRegistry('https://hub.docker.com/repository/docker/prakashlearner13/jenkinsproject/',
+ // 'dockerhubcredential') {
+ // dockerImage.push("${DOCKER_TAG}")
+ // dockerImage.push('latest') // also tag as latest
+ // }
+ // }
+ // }
+ // }
+  // ── Stage 3: Push image to Docker Hub ───────────────────────
+stage('Push to Docker Hub') {
+    steps {
+        script {
+            docker.withRegistry('', 'dockerhubcredential') {
+                dockerImage.push("${DOCKER_TAG}")
+                dockerImage.push('latest')
+            }
+        }
+    }
+}
  // ── Stage 4: SSH into LEMP server & deploy container ─────────
  stage('Deploy to LEMP Server') {
  steps {
