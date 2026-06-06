@@ -48,29 +48,45 @@ stage('Push to Docker Hub') {
     }
 }
  // ── Stage 4: SSH into LEMP server & deploy container ─────────
- stage('Deploy to LEMP Server') {
- steps {
- sshagent(credentials: ['lemp-server-ssh']) {
- sh '''
- ssh -o StrictHostKeyChecking=no ${LEMP_USER}@${LEMP_SERVER}
-\
- "docker pull ${DOCKER_IMAGE}:${BUILD_NUMBER} && \
- docker stop myapp || true && \
- docker rm myapp || true && \
- docker run -d --name myapp \
- -p 5000:5000 \
- ${DOCKER_IMAGE}:${BUILD_NUMBER}"
- '''
- }
- }
- }
- }
- post {
- success {
- echo '✅ Pipeline succeeded — app is live on LEMP server!'
- }
- failure {
- echo '❌ Pipeline failed — check the stage logs above.'
-   }
- }
+//  stage('Deploy to LEMP Server') {
+//  steps {
+//  sshagent(credentials: ['lemp-server-ssh']) {
+//  sh '''
+//  ssh -o StrictHostKeyChecking=no ${LEMP_USER}@${LEMP_SERVER}
+// \
+//  "docker pull ${DOCKER_IMAGE}:${BUILD_NUMBER} && \
+//  docker stop myapp || true && \
+//  docker rm myapp || true && \
+//  docker run -d --name myapp \
+//  -p 5000:5000 \
+//  ${DOCKER_IMAGE}:${BUILD_NUMBER}"
+//  '''
+//  }
+//  }
+//  }
+//  }
+//  post {
+//  success {
+//  echo '✅ Pipeline succeeded — app is live on LEMP server!'
+//  }
+//  failure {
+//  echo '❌ Pipeline failed — check the stage logs above.'
+//    }
+//  }
+// }
+  stage('Deploy to LEMP Server') {
+    steps {
+        sshagent(credentials: ['lemp-server-ssh']) {
+            sh """
+                ssh -o StrictHostKeyChecking=no ${LEMP_USER}@${LEMP_SERVER} '
+                    docker pull ${DOCKER_IMAGE}:${BUILD_NUMBER} &&
+                    docker stop myapp || true &&
+                    docker rm myapp || true &&
+                    docker run -d --name myapp \
+                        -p 5000:5000 \
+                        ${DOCKER_IMAGE}:${BUILD_NUMBER}
+                '
+            """
+        }
+    }
 }
