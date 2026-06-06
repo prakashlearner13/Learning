@@ -72,6 +72,5 @@ post {
         echo '❌ Pipeline failed — check the stage logs above.'
     }
 }
-```
 
 }
