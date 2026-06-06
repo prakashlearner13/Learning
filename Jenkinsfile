@@ -60,3 +60,6 @@ pipeline {
  }
  failure {
  echo '❌ Pipeline failed — check the stage logs above.'
+   }
+ }
+}
