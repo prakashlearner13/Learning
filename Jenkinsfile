@@ -6,7 +6,7 @@ environment {
     DOCKER_TAG   = "${BUILD_NUMBER}"
 
     // Target EC2 / LEMP Server
-    LEMP_SERVER = "13.220.92.251"
+    LEMP_SERVER = "3.90.212.187"
     LEMP_USER   = "ubuntu"
 }
 
